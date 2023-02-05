@@ -62,6 +62,32 @@ function openModal(edit = false, index = 0) {
     if (sNome.value == '' || sFuncao.value == '' || sSalario.value == '') {
       return
     }
+  
+    e.preventDefault();
+  
+    if (id !== undefined) {
+      itens[id].nome = sNome.value
+      itens[id].funcao = sFuncao.value
+      itens[id].salario = sSalario.value
+    } else {
+      itens.push({'nome': sNome.value, 'funcao': sFuncao.value, 'salario': sSalario.value})
+    }
+  
+    setItensBD()
+  
+    modal.classList.remove('active')
+    loadItens()
+    id = undefined
+  }
+  
+  function loadItens() {
+    itens = getItensBD()
+    tbody.innerHTML = ''
+    itens.forEach((item, index) => {
+      insertItem(item, index)
+    })
+  
+  }
 
 
 
@@ -69,3 +95,5 @@ function openModal(edit = false, index = 0) {
 
 const getItensBD = () => JSON.parse(localStorage.getItem('dbfunc')) ?? []
 const setItensBD = () => localStorage.setItem('dbfunc', JSON.stringify(itens))
+
+loadItens()
