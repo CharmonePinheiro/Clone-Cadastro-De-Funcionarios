@@ -57,6 +57,11 @@ function openModal(edit = false, index = 0) {
     tbody.appendChild(tr)
   }
 
+  btnSalvar.onclick = e => {
+  
+    if (sNome.value == '' || sFuncao.value == '' || sSalario.value == '') {
+      return
+    }
 
 
 
